@@ -42,6 +42,22 @@ const ItemCtrl = (function(){
         },
         logData: function(){
             return data
+        },
+        getItemById: function(id){
+            let found = null
+            data.items.forEach(function(item){
+                if(item.id === id){
+                    found = item;
+                }
+            });
+            return found
+
+        },
+        setCurrentItem: function(item){
+            data.currentItem = item
+        },
+        getCurrentItem: function(item){
+            return data.currentItem
         }
     }
 })()

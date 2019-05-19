@@ -2,6 +2,9 @@ const UICtrl = (function(){
     const UISelectors = {
         itemList: '#item-list',
         addBtn: '.add-btn',
+        updateBtn: '.update-btn',
+        deleteBtn: '.delete-btn',
+        backBtn: '.back-btn',
         itemName: '#item-name',
         itemCalories: '#item-calories',
         totalCalories: '.total-calories'
@@ -40,7 +43,7 @@ const UICtrl = (function(){
             li.innerHTML = `
                 <strong>${item.name}:</strong>
                 <em>${item.calories} Calories</em>
-                <a href = "#" class = "secondary-content"><i class="fa fa-edit"></i></a>
+                <a href = "#" class = "secondary-content"><i class="edit-item fa fa-edit"></i></a>
             `
             //insert
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
@@ -55,6 +58,26 @@ const UICtrl = (function(){
         },
         totalCalories: function(total){
             document.querySelector(UISelectors.totalCalories).textContent = total
+        },
+        clearEditState: function(){
+            UICtrl.hideList()
+            document.querySelector(UISelectors.updateBtn).style.display = 'none'
+            document.querySelector(UISelectors.deleteBtn).style.display = 'none'
+            document.querySelector(UISelectors.backBtn).style.display = 'none'
+
+        },
+        showEditState: function(){
+            
+            document.querySelector(UISelectors.updateBtn).style.display = 'inline'
+            document.querySelector(UISelectors.deleteBtn).style.display = 'inline'
+            document.querySelector(UISelectors.backBtn).style.display = 'inline'
+            document.querySelector(UISelectors.addBtn).style.display = 'none'
+
+        },
+        addItemToUI: function(){
+            document.querySelector(UISelectors.itemName).value = ItemCtrl.getCurrentItem().name;
+            document.querySelector(UISelectors.itemCalories).value = ItemCtrl.getCurrentItem().calories;
+            UICtrl.showEditState()
         }
 
     }

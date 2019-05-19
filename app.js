@@ -3,6 +3,7 @@ const App = (function(ItemCtrl, UICtrl){
         const UISelectors = UICtrl.getSelectors();
         // add items event
         document.querySelector(UISelectors.addBtn).addEventListener('click' , itemAddSubmit)
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit)
 
     }
     
@@ -22,6 +23,22 @@ const App = (function(ItemCtrl, UICtrl){
             UICtrl.clearInput();
         }
     }
+
+    const itemUpdateSubmit = function(e){
+        if(e.target.classList.contains('edit-item')){
+            const listID = e.target.parentNode.parentNode.id
+            const listArr = listID.split('.')
+            const id = parseInt(listArr[0])
+
+            //get item to edit
+            const itemToEdit = ItemCtrl.getItemById(id)
+            //set item
+            ItemCtrl.setCurrentItem(itemToEdit)
+            //add item to ui
+            UICtrl.addItemToUI()
+        }
+        e.preventDefault()
+    }
     return {
         init: function(){
             const items = ItemCtrl.getItems()
@@ -34,7 +51,7 @@ const App = (function(ItemCtrl, UICtrl){
 
             const totalCalories = ItemCtrl.getTotalCalories()
             UICtrl.totalCalories(totalCalories)
-            
+            UICtrl.clearEditState()
             loadEventListeners()
            
         }
