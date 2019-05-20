@@ -7,9 +7,10 @@ const UICtrl = (function(){
         backBtn: '.back-btn',
         itemName: '#item-name',
         itemCalories: '#item-calories',
-        totalCalories: '.total-calories'
-
+        totalCalories: '.total-calories',
+        listItems: '#item-list li'
     }
+    
 
     return {
         populateItems: function(items){
@@ -52,6 +53,7 @@ const UICtrl = (function(){
         clearInput: function(){
             document.querySelector(UISelectors.itemName).value = '';
             document.querySelector(UISelectors.itemCalories).value = '';
+            document.querySelector(UISelectors.addBtn).style.display = 'block'
         },
         hideList: function(){
             document.querySelector(UISelectors.itemList).style.display = 'none';
@@ -60,7 +62,6 @@ const UICtrl = (function(){
             document.querySelector(UISelectors.totalCalories).textContent = total
         },
         clearEditState: function(){
-            UICtrl.hideList()
             document.querySelector(UISelectors.updateBtn).style.display = 'none'
             document.querySelector(UISelectors.deleteBtn).style.display = 'none'
             document.querySelector(UISelectors.backBtn).style.display = 'none'
@@ -78,6 +79,29 @@ const UICtrl = (function(){
             document.querySelector(UISelectors.itemName).value = ItemCtrl.getCurrentItem().name;
             document.querySelector(UISelectors.itemCalories).value = ItemCtrl.getCurrentItem().calories;
             UICtrl.showEditState()
+        },
+        updateListItem: function(item){
+            let listItems = document.querySelectorAll(UISelectors.listItems);
+
+            // TURN NODE LIST INTO ARRAY
+            listItems = Array.from(listItems)
+
+            listItems.forEach(function(listItem){
+                const itemId = listItem.getAttribute('id')
+             
+
+                if(itemId === `${item.id}`){
+                    document.getElementById(`${itemId}`).innerHTML = `
+                        <strong>${item.name}:</strong>
+                        <em>${item.calories} Calories</em>
+                        <a href = "#" class = "secondary-content">
+                            <i class="edit-item fa fa-edit"></i>
+                        </a>
+                    `
+                }else{
+                    console.log('something went wrong')
+                }
+            })
         }
 
     }
