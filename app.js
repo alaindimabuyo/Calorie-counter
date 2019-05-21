@@ -1,4 +1,4 @@
-const App = (function(ItemCtrl, UICtrl){
+const App = (function(ItemCtrl, UICtrl, StorageCtrl){
     const loadEventListeners = function(){
         const UISelectors = UICtrl.getSelectors();
         // add items event
@@ -50,6 +50,8 @@ const App = (function(ItemCtrl, UICtrl){
             //total calories
             const totalCalories = ItemCtrl.getTotalCalories()
             UICtrl.totalCalories(totalCalories)
+            //store in ls
+            StorageCtrl.storeItem(newItem)
 
             UICtrl.clearInput();
         }
@@ -73,11 +75,12 @@ const App = (function(ItemCtrl, UICtrl){
     }
 
     const itemEditClick = function(e){
-        if(e.target.classList.contains('edit-item')){
+        if(e.target.classList.contains('fa-edit')){
+            console.log(123)
             const listID = e.target.parentNode.parentNode.id
             const listArr = listID.split('.')
             const id = parseInt(listArr[0])
-
+            
             //get item to edit
             const itemToEdit = ItemCtrl.getItemById(id)
             //set item
@@ -120,6 +123,6 @@ const App = (function(ItemCtrl, UICtrl){
            
         }
     }
-})(ItemCtrl, UICtrl)
+})(ItemCtrl, UICtrl, StorageCtrl)
 
 App.init()

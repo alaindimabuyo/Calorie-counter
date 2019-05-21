@@ -6,8 +6,10 @@ const ItemCtrl = (function(){
     }
     //state
     const data = {
-        items: [
-        ],
+        // items: [
+
+        // ],
+        items: StorageCtrl.getItemsFromStorage(),
         currentItem : null,
         totalCalories : 0
     } 
