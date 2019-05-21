@@ -8,7 +8,8 @@ const UICtrl = (function(){
         itemName: '#item-name',
         itemCalories: '#item-calories',
         totalCalories: '.total-calories',
-        listItems: '#item-list li'
+        listItems: '#item-list li',
+        clearBtn: '.clear-btn'
     }
     
 
@@ -65,10 +66,8 @@ const UICtrl = (function(){
             document.querySelector(UISelectors.updateBtn).style.display = 'none'
             document.querySelector(UISelectors.deleteBtn).style.display = 'none'
             document.querySelector(UISelectors.backBtn).style.display = 'none'
-
         },
         showEditState: function(){
-            
             document.querySelector(UISelectors.updateBtn).style.display = 'inline'
             document.querySelector(UISelectors.deleteBtn).style.display = 'inline'
             document.querySelector(UISelectors.backBtn).style.display = 'inline'
@@ -79,6 +78,22 @@ const UICtrl = (function(){
             document.querySelector(UISelectors.itemName).value = ItemCtrl.getCurrentItem().name;
             document.querySelector(UISelectors.itemCalories).value = ItemCtrl.getCurrentItem().calories;
             UICtrl.showEditState()
+        },
+        deleteItem: function(id){
+            const itemID = `${id}`
+            const item = document.getElementById(itemID)
+            item.remove();
+            UICtrl.clearEditState();
+            UICtrl.clearInput()
+        },
+        removeItems: function(){
+            let listItems = document.querySelectorAll(UISelectors.listItems);
+
+            //turn list into array
+            listItems = Array.from(listItems)
+            listItems.forEach(function(item){
+                item.remove()
+            })
         },
         updateListItem: function(item){
             let listItems = document.querySelectorAll(UISelectors.listItems);

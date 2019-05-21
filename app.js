@@ -5,6 +5,13 @@ const App = (function(ItemCtrl, UICtrl){
         document.querySelector(UISelectors.addBtn).addEventListener('click' , itemAddSubmit)
         document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick)
         document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit)
+        document.querySelector(UISelectors.deleteBtn).addEventListener('click', itemDeleteSubmit)
+        document.querySelector(UISelectors.clearBtn).addEventListener('click', clearAllItemsClick)
+        document.querySelector(UISelectors.backBtn).addEventListener('click', function(e){
+            e.preventDefault()
+            UICtrl.clearEditState()
+            UICtrl.clearInput()
+        })
 
         //disable enter
         document.addEventListener('keypress', function(e){
@@ -16,6 +23,21 @@ const App = (function(ItemCtrl, UICtrl){
 
     }
     
+    const clearAllItemsClick = function(e){
+        e.preventDefault()
+
+        // delete all data from itemjs
+        ItemCtrl.clearAllItems()
+
+        // remove from ui
+        UICtrl.removeItems()
+        const totalCalories = ItemCtrl.getTotalCalories()
+        UICtrl.totalCalories(totalCalories)
+        UICtrl.clearEditState()
+        UICtrl.clearInput()
+        UICtrl.hideList()
+    }
+
     const itemAddSubmit = function(e){
         
         e.preventDefault()
@@ -64,6 +86,22 @@ const App = (function(ItemCtrl, UICtrl){
             UICtrl.addItemToUI()
         }
         e.preventDefault()
+    }
+    const itemDeleteSubmit = function(e){
+        e.preventDefault()
+        const currentItem = ItemCtrl.getCurrentItem()
+
+        // delete from item.js
+        ItemCtrl.deleteItem(currentItem.id);
+        // delete from UI
+        UICtrl.deleteItem(currentItem.id)
+        //remove total calories
+        const totalCalories = ItemCtrl.getTotalCalories()
+        UICtrl.totalCalories(totalCalories)
+
+        UICtrl.clearInput();
+
+       
     }
     return {
         init: function(){

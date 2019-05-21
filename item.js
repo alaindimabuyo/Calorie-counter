@@ -68,6 +68,18 @@ const ItemCtrl = (function(){
             })
             return found
         },
+        deleteItem: function(id){
+            //get id
+            const ids = data.items.map(function(item){
+                return item.id
+            })
+            //get index
+            const index = ids.indexOf(id)
+            data.items.splice(index, 1)
+        },
+        clearAllItems: function(){
+            data.items = []
+        },
         setCurrentItem: function(item){
             data.currentItem = item
         },
