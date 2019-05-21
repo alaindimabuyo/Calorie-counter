@@ -28,6 +28,29 @@ const StorageCtrl = (function(){
                 items = JSON.parse(localStorage.getItem('items'))
             }
             return items;
+        },
+        updateItemStorage: function(updatedItem){
+            let items = JSON.parse(localStorage.getItem('items'))
+
+            items.forEach(function(item, index){
+                if(updatedItem.id === item.id){
+                    items.splice(index, 1, updatedItem)
+                }
+            })
+            localStorage.setItem('items', JSON.stringify(items))
+        },
+        deleteItemStorage: function(id){
+            let items = JSON.parse(localStorage.getItem('items'))
+
+            items.forEach(function(item, index){
+                if(id === item.id){
+                    items.splice(index, 1)
+                }
+            })
+            localStorage.setItem('items', JSON.stringify(items))
+        },
+        clearItemsStorage: function(){
+            localStorage.removeItem('items')
         }
     }
 })();

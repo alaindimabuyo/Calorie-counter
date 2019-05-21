@@ -33,6 +33,9 @@ const App = (function(ItemCtrl, UICtrl, StorageCtrl){
         UICtrl.removeItems()
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.totalCalories(totalCalories)
+        // clear from storage
+        StorageCtrl.clearItemsStorage()
+
         UICtrl.clearEditState()
         UICtrl.clearInput()
         UICtrl.hideList()
@@ -70,6 +73,9 @@ const App = (function(ItemCtrl, UICtrl, StorageCtrl){
 
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.totalCalories(totalCalories)
+        //update from storage
+        StorageCtrl.updateItemStorage(updatedItem)
+
         UICtrl.clearEditState()
         UICtrl.clearInput()
     }
@@ -101,6 +107,9 @@ const App = (function(ItemCtrl, UICtrl, StorageCtrl){
         //remove total calories
         const totalCalories = ItemCtrl.getTotalCalories()
         UICtrl.totalCalories(totalCalories)
+        //delete from storage
+        StorageCtrl.deleteItemStorage(currentItem.id)
+
 
         UICtrl.clearInput();
 
